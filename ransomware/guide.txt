@@ -1,0 +1,1 @@
+code and key inside hello_world project in pycharm projects, including ransomware.py, decrypt.py and the_key.key

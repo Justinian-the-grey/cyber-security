@@ -1,0 +1,56 @@
+1) With nmap found open ports 22 for ssh and 80 for http
+
+********************************************************
+
+2) After inspecting the page source found a hint about checking 
+the console where it was displayed an array with 10 pokenom names:
+[ "Bulbasaur", "Charmander", "Squirtle", "Snorlax", "Zapdos", "Mew", "Charizard", "Grimer", "Metapod", "Magikarp" ]
+
+*********************************************************
+
+3) Also in the page source found the credentials for ssh:
+username: pokemon
+password: hack_the_pokemon
+
+*********************************************************
+
+4) In Desktop unzipped the zip file P0kEmOn and found a txt file with
+hex values which I converted to ascii and got the first pokemon:
+"PoKeMoN{Bulbasaur}"
+
+*********************************************************
+
+5) In /Videos/Gotta/Catch/Them/ALL found a C file which had the 
+credentials to the user ash:
+username: ash
+password: pikapika
+
+**********************************************************
+
+6) After changing user (Ash) with the new credentials found the roots
+favourite pokemon in roots-pokemon.txt, in the home directory:
+"Pikachu!"
+
+***********************************************************
+
+7) In  the /var/www/html found the water-type.txt file containing: 
+"Ecgudfxq_EcGmP{Ecgudfxq}" which was decrypted with caesar-cipher with 
+key 12 and gave the water-type pokemon:
+"Squirtle_SqUaD{Squirtle}"
+
+***********************************************************
+
+8) Got root by running:
+- sudo su root
+
+***********************************************************
+
+9) By running the command:
+- find / -name '*fire-type*' -type f 2>/dev/null | grep -ivE "(firefox|firewall)"
+found the fite-type.txt in /etc/why_am_i_here? which had the following string:
+"UDBrM20wbntDaGFybWFuZGVyfQ=="
+
+***********************************************************
+
+10) After decoding the previous string in base64 got the 3rd flag:
+P0k3m0n{Charmander}

